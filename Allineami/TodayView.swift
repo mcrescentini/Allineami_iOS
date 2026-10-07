@@ -311,6 +311,9 @@ struct TodayView: View {
     // MARK: - Notifications every 15 minutes
 
     private func requestNotificationPermission() async {
+        #if DEBUG
+        if ScreenshotMode.isDemo { return }
+        #endif
         let center = UNUserNotificationCenter.current()
         _ = try? await center.requestAuthorization(options: [.alert, .sound, .badge])
     }

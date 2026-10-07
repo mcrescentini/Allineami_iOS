@@ -334,6 +334,9 @@ struct StatsView: View {
                 .listStyle(.insetGrouped)
             }
             .navigationTitle("Statistiche")
+            #if DEBUG
+            .onAppear { if ScreenshotMode.isDemo { weekOffset = -ScreenshotMode.statsWeeksBack } }
+            #endif
             .sheet(item: $editingDate) { date in
                 EditDaySheet(
                     date: date,
@@ -343,10 +346,10 @@ struct StatsView: View {
         }
     }
 
-    /// Hours worn: real day length (23/25 h on DST changes); for today, only the time elapsed so far
+    /// Hours worn: real day length (23/25 h on DST changes) minus the time out
     private func wornSeconds(date: Date, removed: Int) -> Int {
         let start = DateUtils.startOfDay(for: date)
-        let end = min(DateUtils.addDays(start, 1), Date())
+        let end = DateUtils.addDays(start, 1)
         return max(0, Int(end.timeIntervalSince(start)) - removed)
     }
 

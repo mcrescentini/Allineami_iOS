@@ -15,6 +15,14 @@ Orthodontists usually ask you to wear clear aligners **22 hours a day**, which l
 
 The app's interface is in Italian.
 
+## Screenshots
+
+_Screenshots taken with sample data._
+
+| Today | Statistics | Export | Settings |
+|:---:|:---:|:---:|:---:|
+| <img src="docs/screenshots/oggi.png" width="200"> | <img src="docs/screenshots/statistiche.png" width="200"> | <img src="docs/screenshots/export.png" width="200"> | <img src="docs/screenshots/impostazioni.png" width="200"> |
+
 ## Features
 
 - **One-tap timer**: "Togli Allineatore" (take out) starts the count, "Monta Allineatore" (put back) stops it
@@ -42,6 +50,7 @@ Allineami **collects no data**: no account, no internet connection, no ads or tr
 │   ├── SettingsView.swift     Daily goal and credits
 │   └── …                      SwiftData models, dates, formatting
 ├── AllineamiWidget/           Live Activity and Dynamic Island (WidgetKit)
+├── fastlane/                  App Store listing texts and screenshots
 ├── Allineami.xcodeproj
 └── PRIVACY.md
 ```
@@ -53,6 +62,8 @@ Requirements: a Mac with **Xcode 26** or later. The app runs on **iOS 18.6** and
 1. Open `Allineami.xcodeproj` in Xcode
 2. Under *Signing & Capabilities*, select your development team for both targets (`Allineami` and `AllineamiWidgetExtension`). If you use a different account, also change the bundle identifiers (`com.allineami.app` and `com.allineami.app.widget`)
 3. Press **Run**
+
+Store screenshots are produced in a Debug build with the launch arguments `-demoData YES -screenshotTab <0-3> -statsWeeksBack 1` (see `ScreenshotMode.swift`), which load sample data. They are not compiled into Release builds.
 
 ## Tech stack
 
