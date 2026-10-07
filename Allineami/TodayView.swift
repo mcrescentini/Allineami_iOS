@@ -239,6 +239,9 @@ struct TodayView: View {
             .task {
                 await requestNotificationPermission()
             }
+            #if DEBUG
+            .onReceive(NotificationCenter.default.publisher(for: ScreenshotMode.toggleTimer)) { _ in toggleTimer() }
+            #endif
         }
     }
 

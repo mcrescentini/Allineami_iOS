@@ -63,7 +63,7 @@ Requirements: a Mac with **Xcode 26** or later. The app runs on **iOS 18.6** and
 2. Under *Signing & Capabilities*, select your development team for both targets (`Allineami` and `AllineamiWidgetExtension`). If you use a different account, also change the bundle identifiers (`com.allineami.app` and `com.allineami.app.widget`)
 3. Press **Run**
 
-Store screenshots are produced in a Debug build with the launch arguments `-demoData YES -screenshotTab <0-3> -statsWeeksBack 1` (see `ScreenshotMode.swift`), which load sample data. They are not compiled into Release builds.
+Store screenshots are produced in a Debug build with the launch arguments `-demoData YES -screenshotTab <0-3> -statsWeeksBack 1` (see `ScreenshotMode.swift`), which load sample data; `-demoData YES -demoAutoplay YES` plays the scripted tour used for the demo video. None of this is compiled into Release builds.
 
 ## Tech stack
 

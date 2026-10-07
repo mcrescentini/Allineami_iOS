@@ -13,10 +13,15 @@ import SwiftData
 /// - `-demoData YES`: replaces the stored data with two weeks of sample sessions
 /// - `-screenshotTab <0-3>`: tab selected at launch
 /// - `-statsWeeksBack <n>`: show the week n weeks ago in Statistics
+/// - `-demoAutoplay YES`: plays a scripted tour of the app (for the demo video)
 enum ScreenshotMode {
     static var isDemo: Bool { UserDefaults.standard.bool(forKey: "demoData") }
     static var initialTab: Int { UserDefaults.standard.integer(forKey: "screenshotTab") }
     static var statsWeeksBack: Int { UserDefaults.standard.integer(forKey: "statsWeeksBack") }
+    static var autoplay: Bool { UserDefaults.standard.bool(forKey: "demoAutoplay") }
+
+    static let toggleTimer = Notification.Name("ScreenshotMode.toggleTimer")
+    static let previousWeek = Notification.Name("ScreenshotMode.previousWeek")
 
     @MainActor
     static func seed(_ context: ModelContext) {
@@ -49,9 +54,10 @@ enum ScreenshotMode {
         context.insert(SessionEntry(timestamp: today.addingTimeInterval(7 * 3600 + 52 * 60), durationSeconds: 27 * 60 + 14, dayKey: todayKey))
         context.insert(SessionEntry(timestamp: today.addingTimeInterval(12 * 3600 + 48 * 60), durationSeconds: 51 * 60 + 3, dayKey: todayKey))
 
+        // The autoplay tour starts with the aligners in and takes them out on screen
         let running = RunningSessionState()
-        running.isRunning = true
-        running.startDate = now.addingTimeInterval(-(9 * 60 + 41))
+        running.isRunning = !autoplay
+        running.startDate = autoplay ? nil : now.addingTimeInterval(-(9 * 60 + 41))
         context.insert(running)
 
         try? context.save()

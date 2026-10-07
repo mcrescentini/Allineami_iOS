@@ -336,6 +336,9 @@ struct StatsView: View {
             .navigationTitle("Statistiche")
             #if DEBUG
             .onAppear { if ScreenshotMode.isDemo { weekOffset = -ScreenshotMode.statsWeeksBack } }
+            .onReceive(NotificationCenter.default.publisher(for: ScreenshotMode.previousWeek)) { _ in
+                withAnimation { weekOffset -= 1 }
+            }
             #endif
             .sheet(item: $editingDate) { date in
                 EditDaySheet(
